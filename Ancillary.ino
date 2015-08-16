@@ -26,16 +26,16 @@ void manualControl()
   digitalWrite(motorReverse,LOW);
   delay(debounce);
   
-    while(!digitalRead(stopReset))
+    while(digitalRead(stopReset))
     {
-      while(digitalRead(manualForward))
+      while(!digitalRead(manualForward))
       {
         digitalWrite(motorReverse,LOW);
         digitalWrite(motorForward,HIGH);
        
       }
       
-      while(digitalRead(manualReverse))
+      while(!digitalRead(manualReverse))
       {
         digitalWrite(motorForward,LOW);
         digitalWrite(motorReverse,HIGH);

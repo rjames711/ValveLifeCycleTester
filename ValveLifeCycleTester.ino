@@ -35,8 +35,12 @@ int count=0;
 
 int debounce=500;
 
+boolean magSense1;
+boolean magSense2;
+
 boolean cycle=false;
 boolean motorSwitch;
+boolean direction1;
 
 
 void setup()
@@ -44,8 +48,13 @@ void setup()
 pinMode(magSensor1,INPUT);
 pinMode(magSensor2,INPUT);
 
+
 pinMode(motorForward,OUTPUT);
 pinMode(motorReverse,OUTPUT);
+
+pinMode(stopReset,INPUT_PULLUP);
+pinMode(manualForward,INPUT_PULLUP);
+pinMode(manualReverse,INPUT_PULLUP);
 
 delay(debounce); 
 Serial.begin(9600);
@@ -55,15 +64,17 @@ count=EEPROMReadlong(0);
 }
 
 void loop()
-
 {
+
+  magSense1=digitalRead(magSensor1);
+  magSense2=digitalRead(magSensor2);
 
   if(digitalRead(reset))
   {
      EEPROMWritelong(0,count);
   }
   
-  if(digitalRead(stopReset))
+  if(!digitalRead(stopReset))
   {
    manualControl(); 
   }
