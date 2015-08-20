@@ -40,25 +40,26 @@ boolean magSense2;
 
 boolean cycle=false;
 boolean motorSwitch;
-boolean direction1;
+int motorDirection=0;
+int oldMotorDirection=0;
 
 
 void setup()
 {
-pinMode(magSensor1,INPUT);
-pinMode(magSensor2,INPUT);
+  pinMode(magSensor1,INPUT);
+  pinMode(magSensor2,INPUT);
 
 
-pinMode(motorForward,OUTPUT);
-pinMode(motorReverse,OUTPUT);
+  pinMode(motorForward,OUTPUT);
+  pinMode(motorReverse,OUTPUT);
 
-pinMode(stopReset,INPUT_PULLUP);
-pinMode(manualForward,INPUT_PULLUP);
-pinMode(manualReverse,INPUT_PULLUP);
+  pinMode(stopReset,INPUT_PULLUP);
+  pinMode(manualForward,INPUT_PULLUP);
+  pinMode(manualReverse,INPUT_PULLUP);
 
-delay(debounce); 
-Serial.begin(9600);
-count=EEPROMReadlong(0);
+  delay(debounce); 
+  Serial.begin(9600);
+  count=EEPROMReadlong(0);
 
 
 }
@@ -66,35 +67,54 @@ count=EEPROMReadlong(0);
 void loop()
 {
 
+
   magSense1=digitalRead(magSensor1);
   magSense2=digitalRead(magSensor2);
 
+  if(magSense1&&magSense2)
+    Serial.println("error both endstop sensor active");
+
+  if(magSense1)
+    motorDirection=magSensor1;
+
+  if(magSense2)
+    motorDirection=magSensor2;
+
   if(digitalRead(reset))
   {
-     EEPROMWritelong(0,count);
+    EEPROMWritelong(0,count);
   }
-  
+
   if(!digitalRead(stopReset))
   {
-   manualControl(); 
+    manualControl(); 
   }
   
-  if(digitalRead(magSensor1)||digitalRead(magSensor2))
+
+  if(oldMotorDirection!=motorDirection)
   {
+
+    
+    
     MotorReverse();
     cycle=!cycle;
+    oldMotorDirection=motorDirection;
     if(cycle)
-      {
-        count++;
-        EEPROMWritelong(0,count);
-        Serial.print("Count: ");
-        Serial.println(count);
-      }
+    {
+      count++;
+      EEPROMWritelong(0,count);
+      Serial.print("Count: ");
+      Serial.println(count);
+      
+      
+    }
   }
-  
-  
-  
+
+
+
 }
+
+
 
 
 

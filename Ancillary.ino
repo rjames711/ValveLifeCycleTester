@@ -45,9 +45,10 @@ void manualControl()
       
     }
 
-  delay(debounce);
+
   digitalWrite(motorForward,LOW);
   digitalWrite(motorReverse,LOW);
   Serial.println("leaving manual control");
+    delay(debounce);
 }
 
