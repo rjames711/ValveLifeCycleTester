@@ -1,6 +1,5 @@
 #include <EEPROM.h>
-#include <LiquidCrystal.h>
-LiquidCrystal lcd(42,43,44,45,46,47);
+
 
 ////Pin Settings for arduino Uno////
 //int magSensor1=2;
@@ -28,9 +27,6 @@ int manualReverse=30;
 
 int reset=32;
 
-int load1=8;
-int load2=9;
-
 
 ////////////////////////////////////
 
@@ -46,13 +42,10 @@ boolean cycle=false;
 boolean motorSwitch;
 int motorDirection=0;
 int oldMotorDirection=0;
-int oldTime=0;
+
 
 void setup()
 {
-  pinMode(load1,INPUT);
-  pinMode(load2,INPUT);
-  
   pinMode(magSensor1,INPUT);
   pinMode(magSensor2,INPUT);
 
@@ -73,7 +66,6 @@ void setup()
 
 void loop()
 {
-
 
 
   magSense1=digitalRead(magSensor1);
@@ -112,12 +104,9 @@ void loop()
     {
       count++;
       EEPROMWritelong(0,count);
-//      Serial.print("Count: ");
-//      Serial.println(count);
-         lcd.setCursor(20, 0);
-         lcd.print("Count: ");
-          lcd.print(count);
-          
+      Serial.print("Count: ");
+      Serial.println(count);
+
 
     }
   }

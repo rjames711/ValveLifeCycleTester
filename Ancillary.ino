@@ -3,14 +3,14 @@ void MotorReverse()
   
   if(motorSwitch)
     {
-     digitalWrite(motorReverse,LOW);
-     digitalWrite(motorForward,HIGH);
+    analogWrite(motorReverse,0);
+     analogWrite(motorForward,50);
     } 
     
    else
      {
-       digitalWrite(motorForward,LOW);
-       digitalWrite(motorReverse,HIGH);
+       analogWrite(motorForward,0);
+       analogWrite(motorReverse,50);
      } 
      
    motorSwitch=!motorSwitch;
