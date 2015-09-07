@@ -16,6 +16,9 @@ LiquidCrystal lcd(42,43,44,45,46,47);
 
 ////Pin Settings for arduino Mega////
 
+
+
+
 int magSensor1=22;
 int magSensor2=23;
 
@@ -28,6 +31,12 @@ int manualReverse=30;
 
 int reset=32;
 
+int buttonA=33;
+int buttonB=34;
+int buttonC=35;
+int buttonD=36;
+
+
 int load1=8;
 int load2=9;
 
@@ -39,8 +48,6 @@ int count=0;
 int motorSpeed;
 int debounce=500;
 
-boolean magSense1;
-boolean magSense2;
 
 boolean cycle=false;
 boolean motorSwitch;
@@ -52,7 +59,7 @@ void setup()
 {
   pinMode(load1,INPUT);
   pinMode(load2,INPUT);
-  
+
   pinMode(magSensor1,INPUT);
   pinMode(magSensor2,INPUT);
 
@@ -63,6 +70,10 @@ void setup()
   pinMode(stopReset,INPUT_PULLUP);
   pinMode(manualForward,INPUT_PULLUP);
   pinMode(manualReverse,INPUT_PULLUP);
+  pinMode(buttonA,INPUT_PULLUP);
+  pinMode(buttonB,INPUT_PULLUP);
+  pinMode(buttonC,INPUT_PULLUP);
+  pinMode(buttonD,INPUT_PULLUP);
 
   delay(debounce); 
   Serial.begin(9600);
@@ -74,57 +85,28 @@ void setup()
 void loop()
 {
 
-
-
-  magSense1=digitalRead(magSensor1);
-  magSense2=digitalRead(magSensor2);
-
-  if(magSense1&&magSense2)
+  if(digitalRead(magSensor1)&&digitalRead(magSensor2))
     Serial.println("error both endstop sensor active");
 
-  if(magSense1)
+  if(digitalRead(magSensor1))
     motorDirection=magSensor1;
 
-
-  if(magSense2)
+  if(digitalRead(magSensor2))
     motorDirection=magSensor2;
 
   if(digitalRead(reset))
-  {
     EEPROMWritelong(0,count);
-  }
 
   if(!digitalRead(stopReset))
-  {
     manualControl(); 
-  }
-
 
   if(oldMotorDirection!=motorDirection)
-  {
-
-
-
     MotorReverse();
-    cycle=!cycle;
-    oldMotorDirection=motorDirection;
-    if(cycle)
-    {
-      count++;
-      EEPROMWritelong(0,count);
-//      Serial.print("Count: ");
-//      Serial.println(count);
-         lcd.setCursor(20, 0);
-         lcd.print("Count: ");
-          lcd.print(count);
-          
-
-    }
-  }
-
-
 
 }
+
+
+
 
 
 

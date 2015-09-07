@@ -16,6 +16,22 @@ void MotorReverse()
    motorSwitch=!motorSwitch;
 
   delay(50);
+     cycle=!cycle;
+    oldMotorDirection=motorDirection;
+    if(cycle)
+    {
+      count++;
+      EEPROMWritelong(0,count);
+      //      Serial.print("Count: ");
+      //      Serial.println(count);
+      lcd.setCursor(20, 0);
+      lcd.print("Count: ");
+      lcd.print(count);
+
+
+    }
+  
+  
 }
 
 
