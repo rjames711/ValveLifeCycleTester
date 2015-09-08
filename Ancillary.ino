@@ -24,7 +24,7 @@ void MotorReverse()
       EEPROMWritelong(0,count);
       //      Serial.print("Count: ");
       //      Serial.println(count);
-      lcd.setCursor(20, 0);
+      lcd.setCursor(6, 0);
       lcd.print("Count: ");
       lcd.print(count);
 

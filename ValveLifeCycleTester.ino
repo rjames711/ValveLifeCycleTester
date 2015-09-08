@@ -19,7 +19,7 @@ LiquidCrystal lcd(42,43,44,45,46,47);
 
 
 
-int magSensor1=22;
+byte magSensor1=22;
 int magSensor2=23;
 
 int motorForward=4;
@@ -29,7 +29,7 @@ int stopReset=28;
 int manualForward=29;
 int manualReverse=30;
 
-int reset=32;
+int resetCount=32;
 
 int buttonA=33;
 int buttonB=34;
@@ -74,10 +74,14 @@ void setup()
   pinMode(buttonB,INPUT_PULLUP);
   pinMode(buttonC,INPUT_PULLUP);
   pinMode(buttonD,INPUT_PULLUP);
-
+  
+  lcd.begin(20,4);
+  
   delay(debounce); 
   Serial.begin(9600);
   count=EEPROMReadlong(0);
+  mainMenu();
+
 
 
 }
@@ -85,23 +89,24 @@ void setup()
 void loop()
 {
 
-  if(digitalRead(magSensor1)&&digitalRead(magSensor2))
+  if(!(digitalRead(magSensor1))&&!(digitalRead(magSensor2)))
     Serial.println("error both endstop sensor active");
 
-  if(digitalRead(magSensor1))
+  if(!digitalRead(magSensor1))
     motorDirection=magSensor1;
 
-  if(digitalRead(magSensor2))
+  if(!digitalRead(magSensor2))
     motorDirection=magSensor2;
 
-  if(digitalRead(reset))
+  if(digitalRead(resetCount))
     EEPROMWritelong(0,count);
 
   if(!digitalRead(stopReset))
     manualControl(); 
 
   if(oldMotorDirection!=motorDirection)
-    MotorReverse();
+    MotorReverse();  
+    
 
 }
 
