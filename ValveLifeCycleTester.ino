@@ -3,19 +3,7 @@
 LiquidCrystal lcd(25,27,29,31,33,35);
 
 
-////Pin Settings for arduino Uno////
-//int magSensor1=2;
-//int magSensor2=3;
-//
-//int motorForward=4;
-//int motorReverse=5;
-//
-//int stopReset=8;
-//int manualForward=9;
-//int manualReverse=10;
-//int reset=12;
-
-////Pin Settings for arduino Mega////
+////Pin Settings////
 
 
 
@@ -47,8 +35,8 @@ int load2=9;
 
 
 int count=0;
-int motorSpeed;
-int debounce=500;
+int motorSpeed=100;
+
 
 
 boolean cycle=false;
@@ -83,10 +71,10 @@ void setup()
   
   lcd.begin(20,4);
   
-  delay(debounce); 
+//  delay(debounce); 
   Serial.begin(9600);
   count=EEPROMReadlong(0);
-  mainMenu();
+//  mainMenu();
 
 
 
@@ -94,8 +82,8 @@ void setup()
 
 void loop()
 {
-  
 
+  startMenu();
 
 }
 

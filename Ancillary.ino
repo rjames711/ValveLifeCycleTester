@@ -1,7 +1,7 @@
 
 
 
-void run()
+void runTest()
 {
   if(!(digitalRead(buttonA)))
   {
@@ -55,13 +55,13 @@ void MotorReverse()
   if(motorSwitch)
   {
     analogWrite(motorReverse,0);
-    analogWrite(motorForward,50);
+    analogWrite(motorForward,motorSpeed);
   } 
 
   else
   {
     analogWrite(motorForward,0);
-    analogWrite(motorReverse,50);
+    analogWrite(motorReverse,motorSpeed);
   } 
 
   motorSwitch=!motorSwitch;
@@ -91,7 +91,7 @@ void manualControl()
   Serial.println("entering manual control");
   digitalWrite(motorForward,LOW);
   digitalWrite(motorReverse,LOW);
-  delay(debounce);
+//  delay(debounce);
 
   while(digitalRead(stopReset))
   {
@@ -116,7 +116,7 @@ void manualControl()
   digitalWrite(motorForward,LOW);
   digitalWrite(motorReverse,LOW);
   Serial.println("leaving manual control");
-  delay(debounce);
+//  delay(debounce);
 }
 
 

@@ -1,51 +1,5 @@
 
 
-byte readButtons()
-{
-  if(buttonA())
-    return 1;
-  if(buttonB())
-    return 2;
-  if(buttonC())
-    return 3;
-  if(buttonD())
-    return 4;
-
-
-  return 0; 
-
-}
-
-boolean buttonA()
-{
-  if(!(digitalRead(buttonA)))
-    return true;
-
-  return false;      
-}
-
-boolean buttonB()
-{
-  if(!(digitalRead(buttonB)))
-    return true;
-
-  return false;      
-}
-boolean buttonC()
-{
-  if(!(digitalRead(buttonC)))
-    return true;
-
-  return false;      
-}
-
-boolean buttonD()
-{
-  if(!(digitalRead(buttonD)))
-    return true;
-
-  return false;      
-}
 
 
 void EEPROMWritelong(int address, long value)
