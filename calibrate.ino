@@ -2,7 +2,7 @@
 Hx711 scale(A8, A9);
 
 
-
+byte cal1, cal2;
 double b;
 double rise;
 double run;

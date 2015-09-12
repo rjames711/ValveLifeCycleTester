@@ -1,6 +1,7 @@
 #include <EEPROM.h>
 #include <LiquidCrystal.h>
-LiquidCrystal lcd(42,43,44,45,46,47);
+LiquidCrystal lcd(25,27,29,31,33,35);
+
 
 ////Pin Settings for arduino Uno////
 //int magSensor1=2;
