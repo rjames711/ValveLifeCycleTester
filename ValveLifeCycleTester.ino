@@ -95,44 +95,7 @@ void setup()
 void loop()
 {
   
-  if(digitalRead(!buttonA))
-    {
-      lcd.print("AAAAAAAAAAAAA");
-    }
-     
-  if(digitalRead(!buttonB))
-    {
-      lcd.print("BBBBBBBBBBB");
-    } 
-     
-  if(digitalRead(!buttonC))
-    {
-      lcd.print("CCCCCCCCCCC");
-    }
-     
-  if(digitalRead(!buttonD))
-    {
-      lcd.print("DDDDDDDDDDD");
-    } 
 
-  if(!(digitalRead(magSensor1))&&!(digitalRead(magSensor2)))
-    Serial.println("error both endstop sensor active");
-
-  if(!digitalRead(magSensor1))
-    motorDirection=magSensor1;
-
-  if(!digitalRead(magSensor2))
-    motorDirection=magSensor2;
-
-  if(digitalRead(resetCount))
-    EEPROMWritelong(0,count);
-
-  if(!digitalRead(stopReset))
-    manualControl(); 
-
-  if(oldMotorDirection!=motorDirection)
-    MotorReverse();  
-    
 
 }
 
