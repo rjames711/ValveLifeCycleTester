@@ -32,10 +32,11 @@ int manualReverse=30;
 
 int resetCount=32;
 
-int buttonA=33;
-int buttonB=34;
-int buttonC=35;
-int buttonD=36;
+int buttonA=24;  //White wire
+int buttonB=30;  //Green wire
+int buttonC=28;  //Pink
+int buttonD=32;  //Blue
+int buttonGround=26;  // A pin in the button cable connector used as ground (written digital LOW) to pull buttons low when pressed
 
 
 int load1=8;
@@ -75,6 +76,10 @@ void setup()
   pinMode(buttonB,INPUT_PULLUP);
   pinMode(buttonC,INPUT_PULLUP);
   pinMode(buttonD,INPUT_PULLUP);
+  pinMode(buttonGround,OUTPUT);
+  
+  digitalWrite(buttonGround, LOW);  //Acts as ground for button cable
+  
   
   lcd.begin(20,4);
   
@@ -89,6 +94,26 @@ void setup()
 
 void loop()
 {
+  
+  if(digitalRead(!buttonA))
+    {
+      lcd.print("AAAAAAAAAAAAA");
+    }
+     
+  if(digitalRead(!buttonB))
+    {
+      lcd.print("BBBBBBBBBBB");
+    } 
+     
+  if(digitalRead(!buttonC))
+    {
+      lcd.print("CCCCCCCCCCC");
+    }
+     
+  if(digitalRead(!buttonD))
+    {
+      lcd.print("DDDDDDDDDDD");
+    } 
 
   if(!(digitalRead(magSensor1))&&!(digitalRead(magSensor2)))
     Serial.println("error both endstop sensor active");
