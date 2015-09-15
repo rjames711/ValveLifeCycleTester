@@ -3,48 +3,29 @@
 
 void runTest()
 {
-  if(!(digitalRead(buttonA)))
+  char button='Z';
+  
+  runMenu();
+  
+  while(button=='Z') 
   {
-    lcd.print("AAAAAAAAAAAAA");
-    Serial.println("A");
+    button = readButtons();
+
+    if(!(digitalRead(magSensor1))&&!(digitalRead(magSensor2)))
+      Serial.println("error both endstop sensor active");
+
+    if(!digitalRead(magSensor1))
+      motorDirection=magSensor1;
+
+    if(!digitalRead(magSensor2))
+      motorDirection=magSensor2;
+
+    if(oldMotorDirection!=motorDirection)
+      MotorReverse();  
   }
-
-  if(!(digitalRead(buttonB)))
-  {
-    lcd.print("BBBBBBBBBBB");
-    Serial.println("B");
-  } 
-
-  if(!(digitalRead(buttonC)))
-  {
-    lcd.print("CCCCCCCCCCC");
-    Serial.println("C");
-  }
-
-  if(!(digitalRead(buttonD)))
-  {
-    lcd.print("DDDDDDDDDDD");
-    Serial.println("D");
-  } 
-
-  if(!(digitalRead(magSensor1))&&!(digitalRead(magSensor2)))
-    Serial.println("error both endstop sensor active");
-
-  if(!digitalRead(magSensor1))
-    motorDirection=magSensor1;
-
-  if(!digitalRead(magSensor2))
-    motorDirection=magSensor2;
-
-  if(digitalRead(resetCount))
-    EEPROMWritelong(0,count);
-
-  if(!digitalRead(stopReset))
-    manualControl(); 
-
-  if(oldMotorDirection!=motorDirection)
-    MotorReverse();  
-
+   
+   motorStop
+   
 }
 
 
@@ -89,40 +70,44 @@ void MotorReverse()
 void manualControl()
 {
   Serial.println("entering manual control");
-  digitalWrite(motorForward,LOW);
-  digitalWrite(motorReverse,LOW);
-//  delay(debounce);
+  
+  print4Lines("B: Clockwise","C: Counterclockwise","D: Main menu","");
+  
+  stopMotor();
+  
+  delay(100); 
 
-  while(digitalRead(stopReset))
+  while(!D())
   {
-    while(!digitalRead(manualForward))
+    while(B())
     {
       digitalWrite(motorReverse,LOW);
-      digitalWrite(motorForward,HIGH);
+      analogWrite(motorForward,motorSpeed);
+ 
+}
 
-    }
-
-    while(!digitalRead(manualReverse))
+    while(C())
     {
       digitalWrite(motorForward,LOW);
-      digitalWrite(motorReverse,HIGH);
+      analogWrite(motorReverse,motorSpeed);
+    
     }
-    digitalWrite(motorForward,LOW);
-    digitalWrite(motorReverse,LOW);  
-
+  stopMotor(); 
+ 
   }
 
 
   digitalWrite(motorForward,LOW);
   digitalWrite(motorReverse,LOW);
   Serial.println("leaving manual control");
-//  delay(debounce);
+  //  delay(debounce);
 }
 
 
 void  stopMotor()
 {
-    digitalWrite(motorForward,LOW);
-    digitalWrite(motorReverse,LOW);
+  digitalWrite(motorForward,LOW);
+  digitalWrite(motorReverse,LOW);
 }
-    
+
+

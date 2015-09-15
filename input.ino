@@ -50,7 +50,7 @@ boolean D()
 boolean debounce()
 {
   static long lastTime;  
-  const static int bounceTime=300;
+  const static int bounceTime=150;
   static boolean newDebounce=true;  
 
   if(newDebounce)

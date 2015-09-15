@@ -18,7 +18,7 @@ int stopReset=28;
 int manualForward=29;
 int manualReverse=30;
 
-int resetCount=32;
+
 
 int buttonA=24;  //White wire
 int buttonB=30;  //Green wire
@@ -36,6 +36,8 @@ int load2=9;
 
 int count=0;
 int motorSpeed=100;
+int timeStop=7000;
+int maxLoad=7;      
 
 
 
@@ -80,10 +82,20 @@ void setup()
 
 }
 
+char letter='Z';
+
 void loop()
 {
 
   startMenu();
+ 
+// letter=readButtons();
+//if(letter!='Z')
+//  lcd.print(letter);
+//double h=6.3847;
+//Serial.println(h);
+//delay(100);
+
 
 }
 
